@@ -140,7 +140,7 @@ resource "aws_lb_target_group" "main" {
 resource "aws_autoscaling_group" "main" {
   name_prefix         = "${local.common_name}"
   vpc_zone_identifier = [local.private_subnet_id] # Replace with your private subnets
-  target_group_arn = [aws_lb_target_group.main.arn]
+  target_group_arns = [aws_lb_target_group.main.arn]
 
   min_size         = 1
   max_size         = 10
@@ -180,9 +180,7 @@ resource "aws_autoscaling_group" "main" {
      propagate_at_launch = true
     }
    
-     timeouts {
-        delete = "15m"
-     }
+     
    }  
 }
 
