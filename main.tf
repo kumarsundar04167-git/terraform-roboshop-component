@@ -60,7 +60,7 @@ resource "aws_ami_from_instance" "main" {
 
 resource "aws_launch_template" "main" {
   name = "${local.common_name}"
-  image_id = "aws_ami_from_instance.main.id"
+  image_id = aws_ami_from_instance.main.id
 
   instance_initiated_shutdown_behavior = "terminate"
 
@@ -107,7 +107,7 @@ resource "aws_lb_target_group" "main" {
   name        = "${local.common_name}"
   port        = var.component == "frontend" ? "80" : "8080"
   protocol    = "HTTP"
-  vpc_id      = "local.vpc_id" # Replace with your VPC ID
+  vpc_id      = local.vpc_id # Replace with your VPC ID
   target_type = "instance"               # Options: instance, ip, lambda, alb
   deregistration_delay = 30
 
